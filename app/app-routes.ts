@@ -8,8 +8,8 @@ function routing($locationProvider: ng.ILocationProvider,
         requireBase: false
     });
 
-    // $urlRouterProvider.otherwise('/login');
-    $urlRouterProvider.otherwise('/notes/view');
+    $urlRouterProvider.otherwise('/login');
+    // $urlRouterProvider.otherwise('/notes/view');
 }
 
 export default routing;
