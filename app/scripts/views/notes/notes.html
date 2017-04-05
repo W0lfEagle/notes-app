@@ -1,0 +1,36 @@
+<div class="notes">
+    <div class="container">
+	    <div class="row">
+	    	<div class="col-sm-8 col-sm-offset-2">
+	    		<h2>Notes overview <span class="logout-btn" ng-click="$ctrl.logout()">Logout</span></h2>
+	    		
+	    		<div class="white-bg-round">
+	    			<table class="table">
+	    				<thead>
+		    				<tr>
+								<th>Created by</th>
+								<th>Title</th>
+								<th>Date</th>
+		    				</tr>
+	    				</thead>
+	    				<tbody>
+	    					<tr ng-if="!$ctrl.notes">
+	    						<td>No notes available</td>
+	    					</tr>
+		    				<tr ng-repeat="note in $ctrl.notes" ng-click="$ctrl.viewNote(note.id)">
+		    					<td>{{note.createdBy}}</td>
+		    					<td>{{note.title}}</td>
+		    					<td>{{note.date | date:"short"}}</td>
+		    				</tr>
+	    				</tbody>
+
+
+	    			</table>
+	    			<span class="btn btn-primary" ng-click="$ctrl.createNote()">CREATE A NEW NOTE ></span>
+	    		</div>
+
+
+	    	</div>
+	    </div>
+    </div>
+</div>

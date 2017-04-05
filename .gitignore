@@ -1,0 +1,11 @@
+node_modules
+typings
+css
+generated
+coverage
+dist
+.sass-cache
+.idea
+npm-debug.log
+app/build/
+app/bower_components

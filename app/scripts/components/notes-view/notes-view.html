@@ -1,0 +1,57 @@
+<div class="notes-view-component">
+    <div class="container">
+        <div class="row">
+        	<div class="col-sm-8 col-sm-offset-2">
+        		<h2>{{$ctrl.note.title}}</h2>
+                <div ng-if="$ctrl.toggleAddNote">
+                    <textarea rows="5" class="form-control" ng-model="$ctrl.newNote"></textarea>
+                    <span class="btn btn-primary pull-right" ng-click="$ctrl.submitNote()">ADD NOTE ></span>
+                    <span class="btn btn-default pull-left" ng-click="$ctrl.toggleAddNote = false">Cancel</span>
+                </div>
+                <div ng-if="!$ctrl.toggleAddNote">
+                    <span class="btn btn-primary pull-right" ng-click="$ctrl.toggleAddNote = true">ADD ADDITIONAL NOTE ></span>
+            		<span class="btn btn-default pull-left" ng-click="$ctrl.goBack()">< Back to overview</span>
+                </div>
+                <br>
+                <hr>
+                
+                <!-- ng-repeat item in note.items -->
+
+                <div class="note-container">
+                    <div class="note-item row" ng-repeat="subnote in $ctrl.note.notes | orderBy:'date':true">
+                        <div class="col-xs-2">
+                            <img class="img-circle" ng-src="{{subnote.image}}" alt="">
+                        </div>
+                        <div class="col-xs-10">
+                        <div class="note-content white-bg-round">
+                            <div class="note-details">
+                                <span class="pull-left">{{subnote.createdBy}}</span>
+                                <span class="pull-right">{{subnote.date | date:'short'}}</span>
+                            </div>
+                            <br>
+                                
+                            <p>{{subnote.note}}</p> 
+                        </div>
+                        </div>
+                    </div>
+                    <div class="note-item row">
+                        <div class="col-xs-2">
+                            <img class="img-circle" ng-src="{{$ctrl.note.image}}" alt="">
+                        </div>
+                        <div class="col-xs-10">                            
+                            <div class="note-content white-bg-round">
+                                <div class="note-details">
+                                    <span class="pull-left">{{$ctrl.note.createdBy}}</span>
+                                    <span class="pull-right">{{$ctrl.note.date | date:'short'}}</span>
+                                </div>
+                                <br>
+                                    
+                                <p>{{$ctrl.note.note}}</p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        	</div>
+        </div>
+    </div>
+</div>

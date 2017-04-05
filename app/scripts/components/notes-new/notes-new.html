@@ -1,0 +1,28 @@
+<div class="notes-new-component">
+    <div class="container">
+	    <div class="row">
+	    	<div class="col-sm-8 col-sm-offset-2">
+	    		<h2>New note</h2>
+
+
+		    		<form ng-submit="$ctrl.addNote()">
+			    		<div class="form-group">
+			    		  <label for="title">Title: <span class="text-danger">*</span></label>
+			    		  <input type="text" class="form-control" id="title" required ng-model="$ctrl.title">
+			    		</div>
+			    		<div class="form-group">
+			    		  <label for="pwd">Note: <span class="text-danger">*</span></label>
+						  <textarea rows="5" class="form-control" ng-model="$ctrl.note"></textarea>
+			    		  <!-- <input type="password" class="form-control" id="pwd" required ng-model="$ctrl.password"> -->
+			    		</div>
+			    		<input type="submit" class="btn btn-primary pull-right" value="ADD NOTE >"></input>
+		                <!-- <span class="btn btn-primary pull-right" ng-click="$ctrl.toggleAddNote = true">ADD NOTE ></span> -->
+		        		<span class="btn btn-default pull-left" ng-click="$ctrl.goBack()">Cancel</span>
+		    		</form>
+
+	            <br>
+	            <hr>
+	    	</div>
+	    </div>
+    </div>
+</div>
