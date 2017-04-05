@@ -1,0 +1,22 @@
+{
+  "name": "notes-app",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Wilf"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/W0lfEagle/notes-app",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
+  }
+}
