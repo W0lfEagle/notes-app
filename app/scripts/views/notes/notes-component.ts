@@ -59,3 +59,9 @@ export default angular
     .config(routing)
     .component('notesComponent', notesComponent)
     .name;
+
+
+// para ti Fernando
+// broadcast = (val) => {
+//     this.$scope.$broadcast('broadcast', val);
+// };

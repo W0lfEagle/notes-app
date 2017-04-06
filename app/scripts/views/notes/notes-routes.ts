@@ -1,3 +1,5 @@
+// UI router for you Martins
+
 function routing($stateProvider: angular.ui.IStateProvider) {
 
     $stateProvider
