@@ -51,6 +51,7 @@ class NotesViewComponent {
     }
 
     private submitNote(): void {
+        // patch note to db
         this.note.notes.push({
             id: Math.random(),
             createdBy: 'me',
