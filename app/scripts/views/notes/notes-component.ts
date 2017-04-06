@@ -2,40 +2,31 @@ import * as angular from 'angular';
 // import notesOverviewComponent from '../../components/notes-overview/notes-overview-component';
 import notesViewComponent from '../../components/notes-view/notes-view-component';
 import notesNewComponent from '../../components/notes-new/notes-new-component';
+import NotesService from '../../services/NotesService';
 import './notes.scss';
 import routing from './notes-routes';
+// import 'ngstorage';
+// import '../../services/SimpleStore';
 
 
 class NotesComponent {
     notes: any;
 
-    constructor (private $state: ng.ui.IStateProvider) {
+    constructor (private $state: angular.ui.IStateProvider, private NotesService: NotesService) {
         this.init();
+        // this.notes = [{one: 2}]
     }
 
     private init(): void {
-        // api.getNotes(userId).then((response) => {
-            // this.notes = response.data;
-        // })
-
-        this.notes = [
-            {   
-                id: 123456,
-                createdBy: 'Henry Jones',
-                title: 'This is a note',
-                date: new Date()
-            },
-            {
-                id: 875421,
-                createdBy: 'Sarah Smith',
-                title: 'This is also a note',
-                date: new Date()
-            }
-        ]
+        this.NotesService.getNotes().then((response) => {
+            this.notes = response;
+            console.log(this.notes)
+        })
     }
 
     private createNote(): void {
         this.$state.go('notes.new');
+
     }
 
     private viewNote(noteId): void {
@@ -55,9 +46,10 @@ let notesComponent = {
 };
 
 export default angular
-    .module('app.notesComponent', [ notesViewComponent, notesNewComponent ])
+    .module('app.notesComponent', [ notesViewComponent, notesNewComponent])
     .config(routing)
     .component('notesComponent', notesComponent)
+    .service('NotesService', NotesService)
     .name;
 
 

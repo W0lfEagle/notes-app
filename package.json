@@ -30,9 +30,14 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "@types/angular": "^1.6.14",
+    "@types/bootstrap": "^3.3.32",
+    "@types/es6-promise": "0.0.32",
+    "@types/ngstorage": "^0.3.34",
     "angular": "~1.5.0",
     "angular-ui-router": "~0.2.18",
     "bower": "^1.8.0",
-    "jquery": "~2.2.1"
+    "jquery": "~2.2.1",
+    "ngstorage": "^0.3.11"
   }
 }
