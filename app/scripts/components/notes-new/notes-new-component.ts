@@ -1,16 +1,17 @@
 import * as angular from 'angular';
 import './notes-new.scss';
 // import people, {IPeople} from '../../services/people';
-import {NotesService} from '../../services/NotesService';
+// import {NotesService} from '../../services/NotesService';
 
 
 class NotesNewComponent {
     title: String;
     note: String;
 
-    constructor (private $state: ng.ui.IStateProvider, private NotesService: NotesService) {
+    //, private NotesService: NotesService
+    constructor (private $state: ng.ui.IStateProvider) {
         this.init();
-        console.log(NotesService.postNote({title: 'newNote'}));
+        // console.log(NotesService.postNote({title: 'newNote'}));
     }
 
     private init(): void {
