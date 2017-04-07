@@ -20,7 +20,7 @@ class NotesComponent {
     private init(): void {
         this.NotesService.getNotes().then((response) => {
             this.notes = response;
-            console.log(this.notes)
+            // console.log(this.notes)
         })
     }
 
@@ -30,7 +30,7 @@ class NotesComponent {
     }
 
     private viewNote(noteId): void {
-        console.log('Viewing note:',noteId)
+        // console.log('Viewing note:',noteId)
         this.$state.go('notes.view', {noteId: noteId});
     }
 

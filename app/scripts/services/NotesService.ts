@@ -83,6 +83,7 @@ export default class NotesService {
 		noteObj.id = Math.floor(Math.random() * (9999999999 - 100000000)) + 100000000;
 		// TODO add user details to note
 		noteObj.createdBy = "Guest";
+		noteObj.image = '/images/guest.jpg';
 		noteObj.date = new Date();
 		let defer = this.$q.defer();
         if (this.useLocalStorage) {
@@ -104,6 +105,7 @@ export default class NotesService {
 		let additionalNoteObj = {
 			note: additionalNote,
 			createdBy: "Guest",
+			image: '/images/guest.jpg',
 			date: new Date()
 		};
 		// TODO add user details to note

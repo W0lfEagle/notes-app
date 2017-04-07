@@ -14,7 +14,7 @@ class NotesViewComponent {
     }
 
     private init(): void {
-        console.log(this.$state.params.noteId)
+        // console.log(this.$state.params.noteId)
         this.$state.params;
         this.NotesService.getNote(this.$state.params.noteId).then((response) => {
             this.note = response;
