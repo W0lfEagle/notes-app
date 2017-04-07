@@ -18,6 +18,7 @@ export default class NotesService {
     	    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     	}
 
+    	// this.storage.$reset();
     	// Set example note in storage
         if (this.useLocalStorage && !this.storage.notes) {
         	this.storage.notes = [
@@ -67,8 +68,6 @@ export default class NotesService {
 	public getNote(noteId):ng.IPromise<{}> {
 		let defer = this.$q.defer();
         if (this.useLocalStorage) {
-        	console.log(noteId);
-        	console.log(this.storage.notes[0].id);
         	let note = this.storage.notes.filter( o => o.id == noteId);
         	if (!note.length) throw new Error('Can not find note');
         	defer.resolve(note[0]);
@@ -79,11 +78,27 @@ export default class NotesService {
         return defer.promise;
 	}
 
-	public postNote(noteObj): Object {
-		let response = noteObj;
-		response.success = true;
-		return response;
+	public postNote(noteObj):ng.IPromise<{}> {
+
+		noteObj.id = Math.floor(Math.random() * (9999999999 - 100000000)) + 100000000;
+		// TODO add user details to note
+		noteObj.createdBy = "Guest";
+		noteObj.date = new Date();
+		let defer = this.$q.defer();
+        if (this.useLocalStorage) {
+        	this.storage.notes.push(noteObj);
+        	let response = {
+        		success: true
+        	}
+        	defer.resolve(response);
+        } else {
+        	// TODO get from API - then set to storage
+            throw new Error('Can not find notes - Lost connection to the server');
+        }
+        return defer.promise;
 	}
+
+
 
 	public patchNote(noteObj): Object {
 		let response = {};

@@ -1,7 +1,7 @@
 import * as angular from 'angular';
 import './notes-new.scss';
 // import people, {IPeople} from '../../services/people';
-// import {NotesService} from '../../services/NotesService';
+import NotesService from '../../services/NotesService';
 
 
 class NotesNewComponent {
@@ -9,7 +9,7 @@ class NotesNewComponent {
     note: String;
 
     //, private NotesService: NotesService
-    constructor (private $state: ng.ui.IStateProvider) {
+    constructor (private $state: ng.ui.IStateProvider, private NotesService: NotesService) {
         this.init();
         // console.log(NotesService.postNote({title: 'newNote'}));
     }
@@ -20,10 +20,13 @@ class NotesNewComponent {
 
     private addNote() {
         console.log('submitting note');
-        // api.postNote({title: title, note: note, date: new Date()}).then(=> {
+        let newNote = {
+            title: this.title,
+            note: this.note
+        }
+        this.NotesService.postNote(newNote).then((response) => {
             this.$state.go('notes.root');
-
-        // })
+        })
     }
 
     private goBack() {
