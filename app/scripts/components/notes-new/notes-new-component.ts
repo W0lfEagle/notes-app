@@ -7,12 +7,9 @@ import NotesService from '../../services/NotesService';
 class NotesNewComponent {
     title: String;
     note: String;
-    // toggleAddNote: Boolean;
-
-    //, private NotesService: NotesService
+    
     constructor (private $state: ng.ui.IStateProvider, private NotesService: NotesService) {
         this.init();
-        // console.log(NotesService.postNote({title: 'newNote'}));
     }
 
     private init(): void {
@@ -27,7 +24,6 @@ class NotesNewComponent {
         }
         this.NotesService.postNote(newNote).then((response) => {
             this.$state.go('notes.root');
-            // this.toggleAddNote = false;
         })
     }
 

@@ -9,12 +9,10 @@ class NotesViewComponent {
     toggleAddNote: Boolean;
 
     constructor (private $state: ng.ui.IStateProvider, private NotesService: NotesService) {
-        // this.state = $state;
         this.init();
     }
 
     private init(): void {
-        // console.log(this.$state.params.noteId)
         this.$state.params;
         this.NotesService.getNote(this.$state.params.noteId).then((response) => {
             this.note = response;
@@ -23,7 +21,6 @@ class NotesViewComponent {
     }
 
     private submitNote(): void {
-
         this.NotesService.patchNote(this.newNote, this.$state.params.noteId).then((response) => {
             this.note = response;
             this.toggleAddNote = false;

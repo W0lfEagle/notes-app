@@ -1,12 +1,9 @@
 import * as angular from 'angular';
-// import notesOverviewComponent from '../../components/notes-overview/notes-overview-component';
 import notesViewComponent from '../../components/notes-view/notes-view-component';
 import notesNewComponent from '../../components/notes-new/notes-new-component';
 import NotesService from '../../services/NotesService';
 import './notes.scss';
 import routing from './notes-routes';
-// import 'ngstorage';
-// import '../../services/SimpleStore';
 
 
 class NotesComponent {

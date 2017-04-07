@@ -18,8 +18,9 @@ export default class NotesService {
     	    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     	}
 
+    	// uncomment and run to clear local storage
     	// this.storage.$reset();
-    	// Set example note in storage
+
         if (this.useLocalStorage && !this.storage.notes) {
         	this.storage.notes = [
 			    {   
@@ -119,8 +120,6 @@ export default class NotesService {
         	} else {
         		note.notes = [additionalNoteObj];
         	}
-        	// let note = this.storage.notes.splice(this.storage.notes.indexOf(item), 1);( o => o.id == noteId);
-        	// if (!note.length) throw new Error('Can not find note');
         	defer.resolve(note);
         } else {
         	// TODO get from API - then set to storage
