@@ -25,7 +25,7 @@ export default class NotesService {
 			    {   
 			        id: 123456,
 			        createdBy: 'Henry Jones',
-			        title: 'This is a note',
+			        title: 'This is an example note',
 			        date: randomDate(new Date(2017, 0, 1), new Date(2017, 2, 1)),
 			        image: '/images/henry.jpg',
 			        note: 'Lorem ipsum dolor sit amet, noluisse consectetuer ad vim, eu pro numquam partiendo, nam no modo labores appetere. Feugiat insolens deserunt ex sea, at debet argumentum pro, aliquam prodesset theophrastus ea sea. Ne qui sale nonumes, id facer scriptorem usu. Novum tamquam laoreet ea quo. Forensibus appellantur ea pri.',
