@@ -22,6 +22,7 @@ class NotesViewComponent {
 
     private submitNote(): void {
         this.NotesService.patchNote(this.newNote, this.$state.params.noteId).then((response) => {
+            this.note = {};
             this.note = response;
             this.toggleAddNote = false;
             this.newNote = '';

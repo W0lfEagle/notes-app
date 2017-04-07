@@ -11,13 +11,12 @@ class NotesComponent {
 
     constructor (private $state: angular.ui.IStateProvider, private NotesService: NotesService) {
         this.init();
-        // this.notes = [{one: 2}]
     }
 
     private init(): void {
         this.NotesService.getNotes().then((response) => {
+            // this.notes = [];
             this.notes = response;
-            // console.log(this.notes)
         })
     }
 

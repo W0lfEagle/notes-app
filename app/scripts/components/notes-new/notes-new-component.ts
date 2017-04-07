@@ -1,13 +1,12 @@
 import * as angular from 'angular';
 import './notes-new.scss';
-// import people, {IPeople} from '../../services/people';
 import NotesService from '../../services/NotesService';
 
 
 class NotesNewComponent {
     title: String;
     note: String;
-    
+
     constructor (private $state: ng.ui.IStateProvider, private NotesService: NotesService) {
         this.init();
     }

@@ -37,3 +37,9 @@ npm run lint
 + Hook up services/NotesService.ts to backend - functions should return Promise/Observable
 + Socket.io and toast for realtime notifications on note update
 + Tests - authservice, notesService, socket.io
+
+
+## Knows bugs
+### ctrl + f5 is your friend
++ When adding a new note - appears at bottom of list - date/string format issue with ngstorage and angular orderBy
++ Chrome dev tools fails to emulate smaller devices on responsive setting
