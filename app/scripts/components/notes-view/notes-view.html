@@ -18,7 +18,7 @@
                 <!-- ng-repeat item in note.items -->
 
                 <div class="note-container">
-                    <div class="note-item row" ng-repeat="subnote in $ctrl.note.notes | orderBy:'date':true">
+                    <div class="note-item row" ng-repeat="subnote in $ctrl.note.notes | orderBy:'-date'">
                         <div class="col-xs-2">
                             <img class="img-circle" ng-src="{{subnote.image}}" alt="">
                         </div>

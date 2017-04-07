@@ -100,8 +100,30 @@ export default class NotesService {
 
 
 
-	public patchNote(noteObj): Object {
-		let response = {};
-		return response;
+	public patchNote(additionalNote, noteId):ng.IPromise<{}> {
+		let additionalNoteObj = {
+			note: additionalNote,
+			createdBy: "Guest",
+			date: new Date()
+		};
+		// TODO add user details to note
+		let defer = this.$q.defer();
+        if (this.useLocalStorage) {
+        	let note = this.storage.notes.find( o => o.id == noteId);
+        	console.log(note);
+        	if (note.hasOwnProperty('notes')) {
+
+        		note.notes.push(additionalNoteObj);
+        	} else {
+        		note.notes = [additionalNoteObj];
+        	}
+        	// let note = this.storage.notes.splice(this.storage.notes.indexOf(item), 1);( o => o.id == noteId);
+        	// if (!note.length) throw new Error('Can not find note');
+        	defer.resolve(note);
+        } else {
+        	// TODO get from API - then set to storage
+            throw new Error('Can not find notes - Lost connection to the server');
+        }
+        return defer.promise;
 	}
 }

@@ -6,6 +6,7 @@ class NotesViewComponent {
 
     note: any;
     newNote: String;
+    toggleAddNote: Boolean;
 
     constructor (private $state: ng.ui.IStateProvider, private NotesService: NotesService) {
         // this.state = $state;
@@ -22,12 +23,11 @@ class NotesViewComponent {
     }
 
     private submitNote(): void {
-        // patch note to db
-        this.note.notes.push({
-            id: Math.random(),
-            createdBy: 'me',
-            date: new Date(),
-            note: this.newNote
+
+        this.NotesService.patchNote(this.newNote, this.$state.params.noteId).then((response) => {
+            this.note = response;
+            this.toggleAddNote = false;
+            this.newNote = '';
         })
     }
 
