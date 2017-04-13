@@ -7,7 +7,7 @@ class NotesNewComponent {
     title: String;
     note: String;
 
-    constructor (private $state: ng.ui.IStateProvider, private NotesService: NotesService) {
+    constructor (private $state: ng.ui.IStateService, private NotesService: NotesService) {
         this.init();
     }
 
@@ -20,10 +20,10 @@ class NotesNewComponent {
         let newNote = {
             title: this.title,
             note: this.note
-        }
+        };
         this.NotesService.postNote(newNote).then((response) => {
             this.$state.go('notes.root');
-        })
+        });
     }
 
     private goBack() {

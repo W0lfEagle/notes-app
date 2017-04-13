@@ -1,4 +1,4 @@
-function routing($stateProvider: angular.ui.IStateProvider) {
+function routing($stateProvider: ng.ui.IStateProvider) {
 
     $stateProvider
         .state('login', <ng.ui.IState>{

@@ -8,7 +8,7 @@ class LoginComponent {
     username: String;
     password: String;
 
-    constructor (private $state: ng.ui.IStateProvider, private AuthService: AuthService) {
+    constructor (private $state: ng.ui.IStateService, private AuthService: AuthService) {
         this.init();
     }
 
@@ -18,7 +18,7 @@ class LoginComponent {
     login() {
         this.AuthService.login(this.username, this.password).then(response => {
             this.$state.go('notes.root');
-        })
+        });
     }
 }
 

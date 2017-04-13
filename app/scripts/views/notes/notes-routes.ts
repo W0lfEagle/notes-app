@@ -1,6 +1,8 @@
 // UI router for you Martins
+// import * as angular from 'angular';
+// import "angular-ui-router";
 
-function routing($stateProvider: angular.ui.IStateProvider) {
+function routing($stateProvider: ng.ui.IStateProvider) {
 
     $stateProvider
         .state('notes', <ng.ui.IState>{

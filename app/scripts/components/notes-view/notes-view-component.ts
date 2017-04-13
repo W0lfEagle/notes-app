@@ -8,7 +8,7 @@ class NotesViewComponent {
     newNote: String;
     toggleAddNote: Boolean;
 
-    constructor (private $state: ng.ui.IStateProvider, private NotesService: NotesService) {
+    constructor (private $state: ng.ui.IStateService, private NotesService: NotesService) {
         this.init();
     }
 
@@ -16,7 +16,7 @@ class NotesViewComponent {
         this.$state.params;
         this.NotesService.getNote(this.$state.params.noteId).then((response) => {
             this.note = response;
-        })
+        });
 
     }
 
@@ -26,7 +26,7 @@ class NotesViewComponent {
             this.note = response;
             this.toggleAddNote = false;
             this.newNote = '';
-        })
+        });
     }
 
     private goBack(): void {

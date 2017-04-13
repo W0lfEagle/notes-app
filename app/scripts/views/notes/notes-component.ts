@@ -1,4 +1,6 @@
 import * as angular from 'angular';
+import 'angular-ui-router';
+
 import notesViewComponent from '../../components/notes-view/notes-view-component';
 import notesNewComponent from '../../components/notes-new/notes-new-component';
 import NotesService from '../../services/NotesService';
@@ -9,7 +11,7 @@ import routing from './notes-routes';
 class NotesComponent {
     notes: any;
 
-    constructor (private $state: angular.ui.IStateProvider, private NotesService: NotesService) {
+    constructor (private $state: ng.ui.IStateService, private NotesService: NotesService) {
         this.init();
     }
 
@@ -17,12 +19,11 @@ class NotesComponent {
         this.NotesService.getNotes().then((response) => {
             // this.notes = [];
             this.notes = response;
-        })
+        });
     }
 
     private createNote(): void {
         this.$state.go('notes.new');
-
     }
 
     private viewNote(noteId): void {

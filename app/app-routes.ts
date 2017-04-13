@@ -1,7 +1,7 @@
 
 function routing($locationProvider: ng.ILocationProvider,
-                $stateProvider: angular.ui.IStateProvider,
-                $urlRouterProvider: angular.ui.IUrlRouterProvider) {
+                $stateProvider: ng.ui.IStateProvider,
+                $urlRouterProvider: ng.ui.IUrlRouterProvider) {
 
     // html5 removes the need for # in URL
     $locationProvider.html5Mode({
