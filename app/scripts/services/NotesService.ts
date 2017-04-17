@@ -5,7 +5,8 @@ import 'ngstorage';
 //  --- private settings: Settings
 
 export default class NotesService {
-    useLocalStorage: Boolean = true;
+    useLocalStorage: Boolean = false;
+    // firebase: any;
 
     static $inject = ['$localStorage', '$q'];
     constructor (private storage: ng.storage.IStorageService, private $q: ng.IQService) {
@@ -64,6 +65,9 @@ export default class NotesService {
             ];
         }
 
+        // firebaseDB.ref('notes').set('a test entry')
+        // console.log(firebaseDB.ref('notes'));
+
     }
 
 
@@ -75,7 +79,7 @@ export default class NotesService {
             defer.resolve(notes);
         } else {
             // TODO get from API - then set to storage
-            throw new Error('Can not update notes - Lost connection to the server');
+            // throw new Error('Can not update notes - Lost connection to the server');
         }
         return defer.promise;
     }
@@ -88,12 +92,16 @@ export default class NotesService {
             defer.resolve(note[0]);
         } else {
             // TODO get from API - then set to storage
-            throw new Error('Can not find notes - Lost connection to the server');
+            // throw new Error('Can not find notes - Lost connection to the server');
+            firebaseDB.ref('/notes/' + noteId).once('value').then(function(snapshot) {
+              defer.resolve(snapshot.val());
+            });
         }
         return defer.promise;
     }
 
     public postNote(noteObj): ng.IPromise<{}> {
+
 
         noteObj.id = Math.floor(Math.random() * (9999999999 - 100000000)) + 100000000;
         // TODO add user details to note
@@ -109,7 +117,10 @@ export default class NotesService {
             defer.resolve(response);
         } else {
             // TODO get from API - then set to storage
-            throw new Error('Can not find notes - Lost connection to the server');
+            firebaseDB.ref('notes/' + noteObj.id).set(noteObj);
+            console.log('Setting note at: ' + noteObj.id)
+            defer.resolve();
+            // throw new Error('Can not find notes - Lost connection to the server');
         }
         return defer.promise;
     }

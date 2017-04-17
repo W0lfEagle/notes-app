@@ -8,9 +8,27 @@
 <body>
 
     <div ui-view="content" class="app-content"></div>
+	<!-- Bootstrap Lukas (I take it for granted) -->
+
+	<script src="https://www.gstatic.com/firebasejs/3.7.6/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyARloHqokK83fm68YJqR8uT_sEyQlyCqVA",
+	    authDomain: "yopa-notes.firebaseapp.com",
+	    databaseURL: "https://yopa-notes.firebaseio.com",
+	    projectId: "yopa-notes",
+	    storageBucket: "yopa-notes.appspot.com",
+	    messagingSenderId: "218103139135"
+	  };
+	  firebase.initializeApp(config);
+
+	  var firebaseDB = firebase.database();
+	</script>
+
     <script src="/bundle.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- Bootstrap Lukas (I take it for granted) -->
+
 </body>
 </html>
