@@ -1,13 +1,12 @@
 import * as angular from 'angular';
-import 'ngstorage';
 
 export default class AuthService {
     useLocalStorage: Boolean = true;
     user: any;
     defaultUsers: any;
 
-    static $inject = ['$localStorage', '$q'];
-    constructor (private storage: ng.storage.IStorageService, private $q: ng.IQService) {
+    static $inject = ['$q'];
+    constructor (private $q: ng.IQService) {
         this.init();
     }
 

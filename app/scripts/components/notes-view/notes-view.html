@@ -18,19 +18,19 @@
                 <!-- ng-repeat item in note.items -->
 
                 <div class="note-container">
-                    <div class="note-item row" ng-repeat="subnote in $ctrl.note.notes | orderBy:'-date'">
+                    <div class="note-item row" ng-repeat="note in $ctrl.subnotes | orderBy:'-date'">
                         <div class="col-xs-2">
-                            <img class="img-circle" ng-src="{{subnote.image}}" alt="">
+                            <img class="img-circle" ng-src="{{note.image}}" alt="">
                         </div>
                         <div class="col-xs-10">
                         <div class="note-content white-bg-round">
                             <div class="note-details">
-                                <span class="pull-left">{{subnote.createdBy}}</span>
-                                <span class="pull-right">{{subnote.date | date:'short'}}</span>
+                                <span class="pull-left">{{note.createdBy}}</span>
+                                <span class="pull-right">{{note.date | date:'short'}}</span>
                             </div>
                             <br>
                                 
-                            <p>{{subnote.note}}</p> 
+                            <p>{{note.note}}</p>
                         </div>
                         </div>
                     </div>

@@ -1,127 +1,59 @@
 import * as angular from 'angular';
-import 'ngstorage';
-// TODO put defaults in settings module
-// import Settings from '../../settings'
-//  --- private settings: Settings
+declare var firebaseDB: any;
 
 export default class NotesService {
     useLocalStorage: Boolean = false;
-    // firebase: any;
 
-    static $inject = ['$localStorage', '$q'];
-    constructor (private storage: ng.storage.IStorageService, private $q: ng.IQService) {
-        this.init();
+    static $inject = ['$q'];
+    constructor (private $q: ng.IQService) {
     }
-
-    public init() {
-        // TODO implement properly - use server db storage
-        function randomDate(start, end) {
-            return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-        }
-
-        // uncomment and run to clear local storage
-        // this.storage.$reset();
-
-        if (this.useLocalStorage && !this.storage.notes) {
-            this.storage.notes = [
-                {
-                    id: 123456,
-                    createdBy: 'Henry Jones',
-                    title: 'This is an example note',
-                    date: randomDate(new Date(2017, 0, 1), new Date(2017, 2, 1)),
-                    image: '/images/henry.jpg',
-                    note: 'Lorem ipsum dolor sit amet, noluisse consectetuer ad vim,'
-                        + 'eu pro numquam partiendo, nam no modo labores appetere. '
-                        + 'Feugiat insolens deserunt ex sea, at debet argumentum pro, '
-                        + 'aliquam prodesset theophrastus ea sea. Ne qui sale nonumes, '
-                        + 'id facer scriptorem usu. Novum tamquam laoreet ea quo. Ea pri.',
-                    notes: [
-                        {
-                            id: 54782,
-                            createdBy: 'Sarah Folley',
-                            date: randomDate(new Date(2017, 2, 1), new Date()),
-                            image: '/images/sarah.jpg',
-                            note: 'Lorem ipsum dolor sit amet, eos id consul minimum, debet'
-                                + 'est no, qui ad ocurreret gubergren. Vel ne porro feugiat, '
-                                + 'volutpat est et. Commodo alienum copiosae in pri, in eam esse '
-                                + 'primis ponderum. Mei no wisi impetus , ex alii delicata sed. '
-                                + 'Ferri ipsum liber in sed, at vim labore volumus , ei atomorum '
-                                + 'disputationi sea. Ex persius eleifend postulant eam, deserunt.'
-                        },
-                        {
-                            id: 885574,
-                            createdBy: 'Henry Jones',
-                            date: randomDate(new Date(2017, 2, 1), new Date()),
-                            image: '/images/henry.jpg',
-                            note: 'Lorem ipsum dolor sit amet, te quo stet meliore, est te '
-                            + 'scaevola ponderum. Te enim copiosae euripidis his, etiam tritani '
-                            + 'albucius vix te? Quod vero putant mel te, nam sapientem intelleg '
-                            + 'id, nec ne vidisse liberavisse. Habeo iuvaret vel an, eos ornatus '
-                            + 'pertinacia voluptatibus eu. Sed falli labitur eripuit ad, errem '
-                            + 'voluptatum est at, pri an meliore consectetuer.'
-                        }
-                    ]
-                }
-            ];
-        }
-
-        // firebaseDB.ref('notes').set('a test entry')
-        // console.log(firebaseDB.ref('notes'));
-
-    }
-
 
     // TODO implement pagination - get only updated
     public getNotes(): ng.IPromise<{}> {
         let defer = this.$q.defer();
-        if (this.useLocalStorage) {
-            let notes = this.storage.notes;
+
+        let notesRef = firebaseDB.ref('notes/').once('value', function(snapshot) {
+            let notes = {};
+            snapshot.forEach(element => {
+                notes[element.key] = element.val();
+            });
+            console.log(notes);
             defer.resolve(notes);
-        } else {
-            // TODO get from API - then set to storage
-            // throw new Error('Can not update notes - Lost connection to the server');
-        }
+        });
         return defer.promise;
     }
 
     public getNote(noteId): ng.IPromise<{}> {
+        // console.log('getting note')
         let defer = this.$q.defer();
-        if (this.useLocalStorage) {
-            let note = this.storage.notes.filter( o => o.id === noteId);
-            if (!note.length) throw new Error('Can not find note');
-            defer.resolve(note[0]);
-        } else {
-            // TODO get from API - then set to storage
-            // throw new Error('Can not find notes - Lost connection to the server');
-            firebaseDB.ref('/notes/' + noteId).once('value').then(function(snapshot) {
-              defer.resolve(snapshot.val());
-            });
-        }
+
+        firebaseDB.ref('notes/' + noteId).once('value').then(function(snapshot) {
+            // console.log(snapshot);
+            defer.resolve(snapshot.val());
+        }).catch(err => {
+            defer.reject(err);
+        });
+
         return defer.promise;
     }
 
     public postNote(noteObj): ng.IPromise<{}> {
 
-
-        noteObj.id = Math.floor(Math.random() * (9999999999 - 100000000)) + 100000000;
-        // TODO add user details to note
+        // TODO get user from authservice
         noteObj.createdBy = 'Guest';
         noteObj.image = '/images/guest.jpg';
-        noteObj.date = new Date();
+        noteObj.date = new Date().getTime();
         let defer = this.$q.defer();
-        if (this.useLocalStorage) {
-            this.storage.notes.push(noteObj);
-            let response = {
-                success: true
-            };
-            defer.resolve(response);
-        } else {
-            // TODO get from API - then set to storage
-            firebaseDB.ref('notes/' + noteObj.id).set(noteObj);
-            console.log('Setting note at: ' + noteObj.id)
+
+        // Append child note
+        let newNoteId = firebaseDB.ref().child('notes').push().key;
+        firebaseDB.ref('notes/' + newNoteId).set(noteObj).then(result => {
+            console.log('Setting note at: ' + newNoteId);
             defer.resolve();
-            // throw new Error('Can not find notes - Lost connection to the server');
-        }
+        }).catch(err => {
+            defer.reject(err);
+        });
+
         return defer.promise;
     }
 
@@ -132,24 +64,17 @@ export default class NotesService {
             note: additionalNote,
             createdBy: 'Guest',
             image: '/images/guest.jpg',
-            date: new Date()
+            date: new Date().getTime()
         };
-        // TODO add user details to note
         let defer = this.$q.defer();
-        if (this.useLocalStorage) {
-            let note = this.storage.notes.find( o => o.id === noteId);
-            console.log(note);
-            if (note.hasOwnProperty('notes')) {
-
-                note.notes.push(additionalNoteObj);
-            } else {
-                note.notes = [additionalNoteObj];
-            }
-            defer.resolve(note);
-        } else {
-            // TODO get from API - then set to storage
-            throw new Error('Can not find notes - Lost connection to the server');
-        }
+        let newNoteId = firebaseDB.ref('notes/' + noteId).child('notes').push().key;
+        firebaseDB.ref('notes/' + noteId + '/notes/' + newNoteId).set(additionalNoteObj)
+        .then(result => {
+            console.log('Setting note at: ' + newNoteId);
+            defer.resolve();
+        }).catch(err => {
+            defer.reject(err);
+        });
         return defer.promise;
     }
 }

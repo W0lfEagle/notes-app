@@ -9,7 +9,7 @@ import routing from './notes-routes';
 
 
 class NotesComponent {
-    notes: any;
+    notes: Array<Object>;
 
     constructor (private $state: ng.ui.IStateService, private NotesService: NotesService) {
         this.init();
@@ -17,8 +17,11 @@ class NotesComponent {
 
     private init(): void {
         this.NotesService.getNotes().then((response) => {
-            // this.notes = [];
-            this.notes = response;
+            this.notes = [];
+            Object.keys(response).forEach(key => {
+                response[key].id = key;
+                this.notes.push(response[key]);
+            });
         });
     }
 
@@ -27,7 +30,7 @@ class NotesComponent {
     }
 
     private viewNote(noteId): void {
-        // console.log('Viewing note:',noteId)
+        console.log('Viewing note:', noteId);
         this.$state.go('notes.view', {noteId: noteId});
     }
 
