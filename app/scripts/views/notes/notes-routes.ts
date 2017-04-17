@@ -1,6 +1,4 @@
 // UI router for you Martins
-// import * as angular from 'angular';
-// import "angular-ui-router";
 
 function routing($stateProvider: ng.ui.IStateProvider) {
 
@@ -31,7 +29,6 @@ function routing($stateProvider: ng.ui.IStateProvider) {
             views: {
                 'content@': { template: '<notes-view-component></notes-view-component>' }
             }
-            // params: [ 'noteId' ]
         });
 }
 

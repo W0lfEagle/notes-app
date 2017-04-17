@@ -18,7 +18,6 @@ class LoginComponent {
     }
 
     private register(): void {
-        console.log('registering');
         this.$state.go('register.root');
     }
 }

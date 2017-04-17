@@ -34,7 +34,6 @@ class NotesComponent {
     }
 
     private viewNote(noteId): void {
-        console.log('Viewing note:', noteId);
         this.$state.go('notes.view', {noteId: noteId});
     }
 

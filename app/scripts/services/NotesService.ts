@@ -23,11 +23,8 @@ export default class NotesService {
     }
 
     public getNote(noteId): ng.IPromise<{}> {
-        // console.log('getting note')
         let defer = this.$q.defer();
-
         firebaseDB.ref('notes/' + noteId).once('value').then(function(snapshot) {
-            // console.log(snapshot);
             defer.resolve(snapshot.val());
         }).catch(err => {
             defer.reject(err);
@@ -37,8 +34,6 @@ export default class NotesService {
     }
 
     public postNote(noteObj): ng.IPromise<{}> {
-
-        // TODO get user from authservice
         noteObj.createdBy = {
             email: this.AuthService.getUser().email,
             name: this.AuthService.getUser().displayName
@@ -73,7 +68,6 @@ export default class NotesService {
         let newNoteId = firebaseDB.ref('notes/' + noteId).child('notes').push().key;
         firebaseDB.ref('notes/' + noteId + '/notes/' + newNoteId).set(additionalNoteObj)
         .then(result => {
-            console.log('Setting note at: ' + newNoteId);
             defer.resolve();
         }).catch(err => {
             defer.reject(err);
