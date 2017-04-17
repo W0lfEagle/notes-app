@@ -38,7 +38,6 @@
     "angular": "~1.5.0",
     "angular-ui-router": "~0.2.18",
     "bower": "^1.8.0",
-    "jquery": "~2.2.1",
-    "ngstorage": "^0.3.11"
+    "jquery": "~2.2.1"
   }
 }

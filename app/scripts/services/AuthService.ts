@@ -1,18 +1,18 @@
 import * as angular from 'angular';
+import 'angular-ui-router';
 declare var firebaseAuth: any;
 
 export default class AuthService {
-    static $inject = ['$q'];
-    constructor (private $q: ng.IQService) {
+    static $inject = ['$q', '$state'];
+    constructor (private $q: ng.IQService, private $state: ng.ui.IStateService) {
         this.init();
     }
 
     public init() {
-        firebaseAuth.onAuthStateChanged(function(user) {
+        firebaseAuth.onAuthStateChanged(user => {
             if (!user) {
                 console.log('no user logged in');
-                // No user is signed in.
-                // TODO redirect to login.root
+                this.$state.go('login.root');
             }
         });
     }

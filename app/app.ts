@@ -6,7 +6,6 @@ import notesComponent from './scripts/views/notes/notes-component';
 import routing from './app-routes';
 import 'angular-ui-router';
 import './app.scss';
-// import 'ngstorage';
 import './bower_components/angular-gravatar/build/angular-gravatar.js';
 
 angular
@@ -15,7 +14,6 @@ angular
         loginComponent,
         registerComponent,
         notesComponent,
-        // 'ngStorage',
         'ui.gravatar'
     ])
     .config(routing);
