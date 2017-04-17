@@ -1,45 +1,24 @@
-# Notes app with angular 1.5, typescript and webpack
+# Notes app with angular 1.5, typescript, webpack and firebase auth/database
 
 ### Install global dependencies
 ```
 npm i webpack -g
 npm i typescript -g
-npm i typings -g
 ```
 then run
 ```
-npm i && typings i
+npm install
 ```
 Start project in dev mode
 ```
 npm run dev
 ```
-Optional: Check for linting errors
-```
-npm run lint
-```
 
+Navigate to localhost:8080
 
-## TODOs
+Register new user account or login to existing account
 
-### Server implementation
-+ Node, Express server with routes:
-    * user authentication (tokens)
-    * post/patch note
-    * get note(id)/notes
-+ Set up mongo, mongooose to store user profiles (img, username, password, email)
-+ Socket.io broadcast to note group on update
-+ Tests - routes, authentication and db persistance
+All notes are available to all users
 
-### Frontend 
-+ Login - create UserAuth service and connect to backend route - store token
-+ Angular storage - save user session token in cookies to skip login page - authenticate NotesService calls with session token 
-+ Hook up services/NotesService.ts to backend - functions should return Promise/Observable
-+ Socket.io and toast for realtime notifications on note update
-+ Tests - authservice, notesService, socket.io
-
-
-## Knows bugs
-### ctrl + f5 is your friend
-+ When adding a new note - appears at bottom of list - date/string format issue with ngstorage and angular orderBy
-+ Chrome dev tools fails to emulate smaller devices on responsive setting
+# TODO
++ Namespace the notes (note board/user groups)
