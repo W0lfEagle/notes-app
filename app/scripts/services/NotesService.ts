@@ -1,11 +1,11 @@
 import * as angular from 'angular';
+import AuthService from './AuthService';
 declare var firebaseDB: any;
 
 export default class NotesService {
-    useLocalStorage: Boolean = false;
 
-    static $inject = ['$q'];
-    constructor (private $q: ng.IQService) {
+    static $inject = ['$q', 'AuthService'];
+    constructor (private $q: ng.IQService, private AuthService: AuthService) {
     }
 
     // TODO implement pagination - get only updated
@@ -17,7 +17,6 @@ export default class NotesService {
             snapshot.forEach(element => {
                 notes[element.key] = element.val();
             });
-            console.log(notes);
             defer.resolve(notes);
         });
         return defer.promise;
@@ -40,8 +39,10 @@ export default class NotesService {
     public postNote(noteObj): ng.IPromise<{}> {
 
         // TODO get user from authservice
-        noteObj.createdBy = 'Guest';
-        noteObj.image = '/images/guest.jpg';
+        noteObj.createdBy = {
+            email: this.AuthService.getUser().email,
+            name: this.AuthService.getUser().displayName
+        };
         noteObj.date = new Date().getTime();
         let defer = this.$q.defer();
 
@@ -62,8 +63,10 @@ export default class NotesService {
     public patchNote(additionalNote, noteId): ng.IPromise<{}> {
         let additionalNoteObj = {
             note: additionalNote,
-            createdBy: 'Guest',
-            image: '/images/guest.jpg',
+            createdBy: {
+                email: this.AuthService.getUser().email,
+                name: this.AuthService.getUser().displayName
+            },
             date: new Date().getTime()
         };
         let defer = this.$q.defer();

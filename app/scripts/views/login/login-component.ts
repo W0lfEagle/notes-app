@@ -9,16 +9,17 @@ class LoginComponent {
     password: String;
 
     constructor (private $state: ng.ui.IStateService, private AuthService: AuthService) {
-        this.init();
     }
 
-    private init(): void {
-    }
-
-    login() {
+    private login(): void {
         this.AuthService.login(this.username, this.password).then(response => {
             this.$state.go('notes.root');
         });
+    }
+
+    private register(): void {
+        console.log('registering');
+        this.$state.go('register.root');
     }
 }
 

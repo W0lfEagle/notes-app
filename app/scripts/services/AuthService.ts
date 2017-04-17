@@ -1,40 +1,68 @@
 import * as angular from 'angular';
+declare var firebaseAuth: any;
 
 export default class AuthService {
-    useLocalStorage: Boolean = true;
-    user: any;
-    defaultUsers: any;
-
     static $inject = ['$q'];
     constructor (private $q: ng.IQService) {
         this.init();
     }
 
     public init() {
-        if (this.useLocalStorage) {
-            this.defaultUsers = [
-                {
-                    username: 'user',
-                    password: 'letMeIn'
-                }
-            ];
-        }
+        firebaseAuth.onAuthStateChanged(function(user) {
+            if (!user) {
+                console.log('no user logged in');
+                // No user is signed in.
+                // TODO redirect to login.root
+            }
+        });
     }
 
-    public login(username, password): ng.IPromise<{}> {
-        let defer = this.$q.defer();
-        if (this.useLocalStorage) {
+    public getUser(): any {
+        return firebaseAuth.currentUser;
+    }
 
-            // TODO check db for auth
-            let user = this.defaultUsers.filter(
-                o => o.username === username && o.password === password);
-            if (!user.length) throw new Error('Can not find user');
-            this.user = user[0];
-            defer.resolve(this.user);
+    public login(email, password): ng.IPromise<{}> {
+        let defer = this.$q.defer();
+        if (firebaseAuth.currentUser) {
+            firebaseAuth.signOut();
         } else {
-            // TODO get from API - then set to storage
-            throw new Error('Can not login');
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+            .then(result => {
+                defer.resolve();
+            })
+            .catch(function(error) {
+                defer.reject(error);
+            });
         }
         return defer.promise;
     }
+
+    public logout(): void {
+        firebaseAuth.signOut();
+    }
+
+    public register(user): ng.IPromise<{}> {
+        let defer = this.$q.defer();
+        firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
+        .then(result => {
+            defer.resolve();
+        }).catch(error => {
+            defer.reject(error);
+        });
+        return defer.promise;
+
+        // TODO verify email
+    }
+
+    public updateProfile(profile): ng.IPromise<{}> {
+        let defer = this.$q.defer();
+        firebaseAuth.currentUser.updateProfile({displayName: profile.name})
+        .then(result => {
+            defer.resolve();
+        }).catch(error => {
+            defer.reject(error);
+        });
+        return defer.promise;
+    }
+
 }

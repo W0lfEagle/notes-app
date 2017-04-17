@@ -10,7 +10,6 @@ function routing($locationProvider: ng.ILocationProvider,
     });
 
     $urlRouterProvider.otherwise('/login');
-    // $urlRouterProvider.otherwise('/notes/view');
 }
 
 export default routing;

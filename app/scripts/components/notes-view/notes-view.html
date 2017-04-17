@@ -20,12 +20,12 @@
                 <div class="note-container">
                     <div class="note-item row" ng-repeat="note in $ctrl.subnotes | orderBy:'-date'">
                         <div class="col-xs-2">
-                            <img class="img-circle" ng-src="{{note.image}}" alt="">
+                            <img class="img-circle" gravatar-src="note.createdBy.email" gravatar-default="identicon" alt="">
                         </div>
                         <div class="col-xs-10">
                         <div class="note-content white-bg-round">
                             <div class="note-details">
-                                <span class="pull-left">{{note.createdBy}}</span>
+                                <span class="pull-left">{{note.createdBy.name}}</span>
                                 <span class="pull-right">{{note.date | date:'short'}}</span>
                             </div>
                             <br>
@@ -36,12 +36,12 @@
                     </div>
                     <div class="note-item row">
                         <div class="col-xs-2">
-                            <img class="img-circle" ng-src="{{$ctrl.note.image}}" alt="">
+                            <img class="img-circle"  gravatar-src="$ctrl.note.createdBy.email" gravatar-default="identicon"  alt="">
                         </div>
                         <div class="col-xs-10">                            
                             <div class="note-content white-bg-round">
                                 <div class="note-details">
-                                    <span class="pull-left">{{$ctrl.note.createdBy}}</span>
+                                    <span class="pull-left">{{$ctrl.note.createdBy.name}}</span>
                                     <span class="pull-right">{{$ctrl.note.date | date:'short'}}</span>
                                 </div>
                                 <br>

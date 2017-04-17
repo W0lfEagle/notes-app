@@ -8,19 +8,20 @@ class NotesViewComponent {
     subnotes: Array<Object> = [];
     newNote: String;
     toggleAddNote: Boolean;
+    noteId: String;
 
     constructor (private $state: ng.ui.IStateService, private NotesService: NotesService) {
         this.init();
     }
 
     private init(): void {
+        this.noteId = this.$state.params.noteId;
         this.getNote();
-
     }
 
     private getNote(): void {
         this.subnotes = [];
-        this.NotesService.getNote(this.$state.params.noteId).then((response) => {
+        this.NotesService.getNote(this.noteId).then((response) => {
             this.note = response;
             // Store subnotes in an array for easy orderBy angular date sort
             Object.keys(this.note.notes).forEach(key => {
@@ -30,7 +31,7 @@ class NotesViewComponent {
     }
 
     private submitNote(): void {
-        this.NotesService.patchNote(this.newNote, this.$state.params.noteId).then((response) => {
+        this.NotesService.patchNote(this.newNote, this.noteId).then((response) => {
             this.getNote();
             this.toggleAddNote = false;
             this.newNote = '';

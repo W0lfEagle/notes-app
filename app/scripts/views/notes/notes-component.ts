@@ -4,6 +4,7 @@ import 'angular-ui-router';
 import notesViewComponent from '../../components/notes-view/notes-view-component';
 import notesNewComponent from '../../components/notes-new/notes-new-component';
 import NotesService from '../../services/NotesService';
+import AuthService from '../../services/AuthService';
 import './notes.scss';
 import routing from './notes-routes';
 
@@ -11,9 +12,12 @@ import routing from './notes-routes';
 class NotesComponent {
     notes: Array<Object>;
 
-    constructor (private $state: ng.ui.IStateService, private NotesService: NotesService) {
-        this.init();
-    }
+    constructor (
+        private $state: ng.ui.IStateService,
+        private NotesService: NotesService,
+        private AuthService: AuthService) {
+            this.init();
+        }
 
     private init(): void {
         this.NotesService.getNotes().then((response) => {
@@ -35,6 +39,7 @@ class NotesComponent {
     }
 
     private logout(): void {
+        this.AuthService.logout();
         this.$state.go('login.root');
     }
 

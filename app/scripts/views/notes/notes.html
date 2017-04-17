@@ -18,7 +18,7 @@
 	    						<td>No notes available</td>
 	    					</tr>
 		    				<tr ng-repeat="note in $ctrl.notes | orderBy:'-date'" ng-click="$ctrl.viewNote(note.id)">
-		    					<td>{{note.createdBy}}</td>
+		    					<td>{{note.createdBy.name}}</td>
 		    					<td>{{note.title}}</td>
 		    					<td>{{note.date | date:"short"}}</td>
 		    				</tr>

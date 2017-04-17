@@ -1,0 +1,28 @@
+<div class="register">
+    <div class="container">
+	    <div class="row">
+        	<div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+        		<h2>Register</h2>
+        		<form ng-submit="$ctrl.register()">
+							<div class="form-group">
+    	    		  <label for="name">Name: <span class="text-danger">*</span></label>
+    	    		  <input type="text" class="form-control" id="name" required ng-model="$ctrl.name">
+    	    		</div>
+							<div class="form-group">
+    	    		  <label for="email">Email: <span class="text-danger">*</span></label>
+    	    		  <input type="email" class="form-control" id="email" required ng-model="$ctrl.email">
+    	    		</div>
+    	    		<div class="form-group">
+    	    		  <label for="pwd">Password: <span class="text-danger">*</span></label>
+    	    		  <input type="password" class="form-control" id="pwd" required ng-model="$ctrl.password">
+    	    		</div>
+    	    		<!--<input type="submit" class="btn btn-primary" value="LOGIN >"></input>-->
+							<input type="submit" class="btn btn-primary" value="Register >"></input>
+        		</form>
+
+						<hr>
+							<span class="btn btn-default" ng-click="$ctrl.login()">Login</span>
+        	</div>	
+	    </div>
+    </div>
+</div>

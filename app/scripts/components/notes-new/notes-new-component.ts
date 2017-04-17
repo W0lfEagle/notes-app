@@ -8,11 +8,6 @@ class NotesNewComponent {
     note: String;
 
     constructor (private $state: ng.ui.IStateService, private NotesService: NotesService) {
-        this.init();
-    }
-
-    private init(): void {
-        console.log('Example Component initialized');
     }
 
     private addNote() {
